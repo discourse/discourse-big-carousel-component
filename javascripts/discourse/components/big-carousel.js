@@ -11,6 +11,28 @@ export default Component.extend({
     return JSON.parse(settings.big_carousel_slides);
   }),
 
+  @discourseComputed()
+  bigStaticSlides() {
+    let bigStaticSlides = [];
+    this.bigSlides.forEach((slide) => {
+      if (slide.slide_type === "slide") {
+        bigStaticSlides.push(slide);
+      }
+    });
+    return bigStaticSlides;
+  },
+
+  @discourseComputed()
+  bigUserSlides() {
+    let bigUserSlides = [];
+    this.bigSlides.forEach((slide) => {
+      if (slide.slide_type === "user") {
+        bigUserSlides.push(slide);
+      }
+    });
+    return bigUserSlides;
+  },
+
   ensureSlider() {
     if (this.shouldDisplay && this.bigSlides.length > 1) {
       return loadScript(settings.theme_uploads.tiny_slider).then(() => {

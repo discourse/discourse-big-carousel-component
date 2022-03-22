@@ -11,7 +11,7 @@
     </div>
 
     <div class="custom-big-carousel-slides">
-      {{#each bigSlides as |bs|}}
+      {{#each bigStaticSlides as |bs|}}
         <div
           class="custom-big-carousel-slide"
           style="background-image: url({{bs.image_url}});"
@@ -37,15 +37,44 @@
           </div>
         </div>
       {{/each}}
-      {{plugin-outlet
-        name="big-carousel-connector"
-        tagName=""
-        connectorTagName="div"
-      }}
+      {{#each bigUserSlides as |bs|}}
+        {{log bs.featured_content}}
+        <div
+          class="custom-big-carousel-slide"
+          style="background-image: url({{bs.image_url}});"
+        >
+          <div class="custom-big-carousel-content">
+            <div class="custom-big-carousel-outer-wrap wrap">
+              <div class="custom-big-carousel-inner-wrap">
+                <a href={{bs.link}} class="custom-big-carousel-text-link">
+                  <h2>
+                    {{bs.headline}}
+                  </h2>
+                  <p>
+                    {{bs.text}}
+                  </p>
+                </a>
+                test
+                {{bs.featured_content.user_summary.likes_given}}
+                {{#if (and bs.button_text bs.link)}}
+                  <a href={{bs.link}} class="btn btn-primary btn-text">
+                    {{bs.button_text}}
+                  </a>
+                {{/if}}
+              </div>
+            </div>
+          </div>
+        </div>
+
+      {{/each}}
+
     </div>
 
     <div class="custom-big-carousel-nav">
-      {{#each bigSlides as |bs|}}
+      {{#each bigStaticSlides as |bs|}}
+        <div class="custom-big-carousel-nav-item"></div>
+      {{/each}}
+      {{#each bigUserSlides as |bs|}}
         <div class="custom-big-carousel-nav-item"></div>
       {{/each}}
     </div>
