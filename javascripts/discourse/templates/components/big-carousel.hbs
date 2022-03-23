@@ -11,62 +11,71 @@
     </div>
 
     <div class="custom-big-carousel-slides">
-      {{#each bigStaticSlides as |bs|}}
-        <div
-          class="custom-big-carousel-slide"
-          style="background-image: url({{bs.image_url}});"
-        >
-          <div class="custom-big-carousel-content">
-            <div class="custom-big-carousel-outer-wrap wrap">
-              <div class="custom-big-carousel-inner-wrap">
-                <a href={{bs.link}} class="custom-big-carousel-text-link">
-                  <h2>
-                    {{bs.headline}}
-                  </h2>
-                  <p>
-                    {{bs.text}}
-                  </p>
-                </a>
-                {{#if (and bs.button_text bs.link)}}
-                  <a href={{bs.link}} class="btn btn-primary btn-text">
-                    {{bs.button_text}}
-                  </a>
-                {{/if}}
-              </div>
-            </div>
-          </div>
-        </div>
-      {{/each}}
-      {{#each bigUserSlides as |bs|}}
-        {{log bs.featured_content}}
-        <div
-          class="custom-big-carousel-slide"
-          style="background-image: url({{bs.image_url}});"
-        >
-          <div class="custom-big-carousel-content">
-            <div class="custom-big-carousel-outer-wrap wrap">
-              <div class="custom-big-carousel-inner-wrap">
-                <a href={{bs.link}} class="custom-big-carousel-text-link">
-                  <h2>
-                    {{bs.headline}}
-                  </h2>
-                  <p>
-                    {{bs.text}}
-                  </p>
-                </a>
-                test
-                {{bs.featured_content.user_summary.likes_given}}
-                {{#if (and bs.button_text bs.link)}}
-                  <a href={{bs.link}} class="btn btn-primary btn-text">
-                    {{bs.button_text}}
-                  </a>
-                {{/if}}
-              </div>
-            </div>
-          </div>
-        </div>
 
-      {{/each}}
+      {{#unless isLoading}}
+        {{#each bigStaticSlides as |bs|}}
+          <div
+            class="custom-big-carousel-slide"
+            style="background-image: url({{bs.image_url}});"
+          >
+            <div class="custom-big-carousel-content">
+              <div class="custom-big-carousel-outer-wrap wrap">
+                <div class="custom-big-carousel-inner-wrap">
+                  <a href={{bs.link}} class="custom-big-carousel-text-link">
+                    <h2>
+                      {{bs.headline}}
+                    </h2>
+                    <p>
+                      {{bs.text}}
+                    </p>
+                  </a>
+                  {{#if (and bs.button_text bs.link)}}
+                    <a href={{bs.link}} class="btn btn-primary btn-text">
+                      {{bs.button_text}}
+                    </a>
+                  {{/if}}
+                </div>
+              </div>
+            </div>
+          </div>
+        {{/each}}
+
+        {{#each bigUserSlides as |bs|}}
+
+          <div
+            class="custom-big-carousel-slide user-slide"
+            style="background-image: url({{bs.image_url}});"
+          >
+            <div class="custom-big-carousel-content">
+              <div class="custom-big-carousel-outer-wrap wrap">
+                <div class="custom-big-carousel-inner-wrap">
+                  <h4>
+                    {{bs.headline}}
+                  </h4>
+                  <div>
+                    <h3>
+                      <a href="/u/{{bs.user_info.user.username}}">
+                        {{avatar bs.user_info.user imageSize="huge"}}
+                        {{bs.user_info.user.username}}
+                      </a>
+                    </h3>
+                  </div>
+                  <p>
+                    {{bs.text}}
+                  </p>
+                  {{#if (and bs.button_text bs.link)}}
+                    <a href="/u/{{bs.link}}" class="btn btn-primary btn-text">
+                      {{bs.button_text}}
+                    </a>
+                  {{/if}}
+                </div>
+              </div>
+            </div>
+          </div>
+
+        {{/each}}
+
+      {{/unless}}
 
     </div>
 
