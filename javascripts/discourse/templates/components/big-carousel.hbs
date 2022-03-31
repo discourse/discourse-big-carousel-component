@@ -1,93 +1,97 @@
-{{#if shouldDisplay}}
+{{#conditional-loading-spinner condition=isLoading}}
 
-  <div class="custom-big-carousel">
+  {{#if shouldDisplay}}
 
-    <div class="custom-big-carousel-prev">
-      {{d-icon "chevron-left"}}
-    </div>
+    <div class="custom-big-carousel">
 
-    <div class="custom-big-carousel-next">
-      {{d-icon "chevron-right"}}
-    </div>
+      <div class="custom-big-carousel-prev">
+        {{d-icon "chevron-left"}}
+      </div>
 
-    <div class="custom-big-carousel-slides">
+      <div class="custom-big-carousel-next">
+        {{d-icon "chevron-right"}}
+      </div>
 
-      {{#unless isLoading}}
-        {{#each bigStaticSlides as |bs|}}
-          <div
-            class="custom-big-carousel-slide"
-            style="background-image: url({{bs.image_url}});"
-          >
-            <div class="custom-big-carousel-content">
-              <div class="custom-big-carousel-outer-wrap wrap">
-                <div class="custom-big-carousel-inner-wrap">
-                  <a href={{bs.link}} class="custom-big-carousel-text-link">
-                    <h2>
+      <div class="custom-big-carousel-slides">
+
+        {{#unless isLoading}}
+          {{#each bigStaticSlides as |bs|}}
+            <div
+              class="custom-big-carousel-slide"
+              style="background-image: url({{bs.image_url}});"
+            >
+              <div class="custom-big-carousel-content">
+                <div class="custom-big-carousel-outer-wrap wrap">
+                  <div class="custom-big-carousel-inner-wrap">
+                    <a href={{bs.link}} class="custom-big-carousel-text-link">
+                      <h2>
+                        {{bs.headline}}
+                      </h2>
+                      <p>
+                        {{bs.text}}
+                      </p>
+                    </a>
+                    {{#if (and bs.button_text bs.link)}}
+                      <a href={{bs.link}} class="btn btn-primary btn-text">
+                        {{bs.button_text}}
+                      </a>
+                    {{/if}}
+                  </div>
+                </div>
+              </div>
+            </div>
+          {{/each}}
+
+          {{#each bigUserSlides as |bs|}}
+
+            <div
+              class="custom-big-carousel-slide user-slide"
+              style="background-image: url({{bs.image_url}});"
+            >
+              <div class="custom-big-carousel-content">
+                <div class="custom-big-carousel-outer-wrap wrap">
+                  <div class="custom-big-carousel-inner-wrap">
+                    <h4>
                       {{bs.headline}}
-                    </h2>
+                    </h4>
+                    <div>
+                      <h3>
+                        <a href="/u/{{bs.user_info.user.username}}">
+                          {{avatar bs.user_info.user imageSize="huge"}}
+                          {{bs.user_info.user.username}}
+                        </a>
+                      </h3>
+                    </div>
                     <p>
                       {{bs.text}}
                     </p>
-                  </a>
-                  {{#if (and bs.button_text bs.link)}}
-                    <a href={{bs.link}} class="btn btn-primary btn-text">
-                      {{bs.button_text}}
-                    </a>
-                  {{/if}}
-                </div>
-              </div>
-            </div>
-          </div>
-        {{/each}}
-
-        {{#each bigUserSlides as |bs|}}
-
-          <div
-            class="custom-big-carousel-slide user-slide"
-            style="background-image: url({{bs.image_url}});"
-          >
-            <div class="custom-big-carousel-content">
-              <div class="custom-big-carousel-outer-wrap wrap">
-                <div class="custom-big-carousel-inner-wrap">
-                  <h4>
-                    {{bs.headline}}
-                  </h4>
-                  <div>
-                    <h3>
-                      <a href="/u/{{bs.user_info.user.username}}">
-                        {{avatar bs.user_info.user imageSize="huge"}}
-                        {{bs.user_info.user.username}}
+                    {{#if (and bs.button_text bs.link)}}
+                      <a href="/u/{{bs.link}}" class="btn btn-primary btn-text">
+                        {{bs.button_text}}
                       </a>
-                    </h3>
+                    {{/if}}
                   </div>
-                  <p>
-                    {{bs.text}}
-                  </p>
-                  {{#if (and bs.button_text bs.link)}}
-                    <a href="/u/{{bs.link}}" class="btn btn-primary btn-text">
-                      {{bs.button_text}}
-                    </a>
-                  {{/if}}
                 </div>
               </div>
             </div>
-          </div>
 
+          {{/each}}
+
+        {{/unless}}
+
+      </div>
+
+      <div class="custom-big-carousel-nav">
+        {{#each bigStaticSlides as |bs|}}
+          <div class="custom-big-carousel-nav-item"></div>
         {{/each}}
-
-      {{/unless}}
+        {{#each bigUserSlides as |bs|}}
+          <div class="custom-big-carousel-nav-item"></div>
+        {{/each}}
+      </div>
 
     </div>
 
-    <div class="custom-big-carousel-nav">
-      {{#each bigStaticSlides as |bs|}}
-        <div class="custom-big-carousel-nav-item"></div>
-      {{/each}}
-      {{#each bigUserSlides as |bs|}}
-        <div class="custom-big-carousel-nav-item"></div>
-      {{/each}}
-    </div>
+  {{/if}}
 
-  </div>
-
-{{/if}}
+{{/conditional-loading-spinner}}
