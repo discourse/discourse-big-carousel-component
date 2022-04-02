@@ -14,20 +14,20 @@ export default Component.extend({
   isLoading: true,
 
   ensureSlider() {
-    // set up up manually populated slides
     let bigStaticSlides = [];
 
     if (this.shouldDisplay && this.bigSlides.length > 1) {
+      // set up static populated slides
       this.bigSlides.forEach((slide) => {
         if (slide.slide_type === "slide") {
           bigStaticSlides.push(slide);
         }
       });
 
-      // set up user slides
       let bigUserSlides = [];
 
-      let combinedUsers = new Promise((resolve, reject) => {
+      // get user info
+      let userSetup = new Promise((resolve) => {
         let count = 0;
         let total = this.bigSlides.reduce(function (n, slide) {
           return n + (slide.slide_type === "user");
@@ -36,18 +36,14 @@ export default Component.extend({
         if (total) {
           this.bigSlides.map((slide) => {
             if (slide.slide_type === "user") {
-              ajax(`/u/${slide.link}.json`).then(function (result) {
-                set(slide, "user_info", result);
-              });
-              ajax(`/u/${slide.link}/summary.json`)
+              ajax(`/u/${slide.link}.json`)
                 .then(function (result) {
-                  set(slide, "user_summary", result);
-                  bigUserSlides.push(slide);
+                  set(slide, "user_info", result);
                 })
                 .then(function () {
                   count++;
-
                   if (count === total) {
+                    // don't resolve until we have everything
                     resolve(bigUserSlides);
                   }
                 });
@@ -59,13 +55,46 @@ export default Component.extend({
         }
       });
 
-      Promise.all([combinedUsers]).then(() => {
-        this.set("isLoading", false);
+      // get user activity
+      let userActivity = new Promise((resolve) => {
+        let count = 0;
+        let total = this.bigSlides.reduce(function (n, slide) {
+          return n + (slide.slide_type === "user");
+        }, 0);
 
+        if (total) {
+          this.bigSlides.map((slide) => {
+            if (slide.slide_type === "user") {
+              ajax(`user_actions.json?offset=0&username=${slide.link}&filter=5`)
+                .then(function (result) {
+                  if (result.user_actions.length) {
+                    set(
+                      slide,
+                      "user_activity",
+                      result.user_actions.slice(0, 3)
+                    );
+                  }
+                  bigUserSlides.push(slide);
+                })
+                .then(function () {
+                  count++;
+                  if (count === total) {
+                    // don't resolve until we have everything
+                    resolve(bigUserSlides);
+                  }
+                });
+            }
+          });
+        } else {
+          // skip if no slides
+          resolve(bigUserSlides);
+        }
+      });
+
+      Promise.all([userSetup, userActivity]).then(() => {
         this.set("bigUserSlides", bigUserSlides);
-
-        // slider script
         loadScript(settings.theme_uploads.tiny_slider).then(() => {
+          // slider script
           var slider = tns({
             container: ".custom-big-carousel-slides",
             items: 1,
@@ -76,6 +105,7 @@ export default Component.extend({
             nextButton: ".custom-big-carousel-next",
             navContainer: ".custom-big-carousel-nav",
           });
+          this.set("isLoading", false);
         });
       });
     }
