@@ -1,7 +1,10 @@
 {
+  "name": "discourse-big-carousel-component",
+  "version": "1.0.0",
+  "repository": "https://github.com/discourse/discourse-big-carousel-component",
   "author": "Discourse",
   "license": "MIT",
   "devDependencies": {
-    "eslint-config-discourse": "latest"
+    "eslint-config-discourse": "^3.1.0"
   }
 }
