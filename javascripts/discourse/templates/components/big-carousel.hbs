@@ -1,5 +1,4 @@
 {{#if shouldDisplay}}
-
   <div class="custom-big-carousel">
 
     <div class="custom-big-carousel-prev">
@@ -14,7 +13,9 @@
       {{#each bigSlides as |bs|}}
         <div
           class="custom-big-carousel-slide"
-          style="background-image: url({{bs.image_url}});"
+          style={{html-safe
+            (concat "background-image: url(" bs.image_url ");")
+          }}
         >
           <div class="custom-big-carousel-content">
             <div class="custom-big-carousel-outer-wrap wrap">
@@ -37,6 +38,7 @@
           </div>
         </div>
       {{/each}}
+
       {{plugin-outlet
         name="big-carousel-connector"
         tagName=""
@@ -45,11 +47,9 @@
     </div>
 
     <div class="custom-big-carousel-nav">
-      {{#each bigSlides as |bs|}}
+      {{#each bigSlides}}
         <div class="custom-big-carousel-nav-item"></div>
       {{/each}}
     </div>
-
   </div>
-
 {{/if}}
