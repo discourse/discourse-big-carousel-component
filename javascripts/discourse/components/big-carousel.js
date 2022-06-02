@@ -1,9 +1,9 @@
+/* global tns */
 import Component from "@ember/component";
 import { computed } from "@ember/object";
 import loadScript from "discourse/lib/load-script";
 import discourseComputed from "discourse-common/utils/decorators";
 import { inject as service } from "@ember/service";
-import { iconNode } from "discourse-common/lib/icon-library";
 
 export default Component.extend({
   router: service(),
@@ -14,7 +14,7 @@ export default Component.extend({
   ensureSlider() {
     if (this.shouldDisplay && this.bigSlides.length > 1) {
       return loadScript(settings.theme_uploads.tiny_slider).then(() => {
-        var slider = tns({
+        tns({
           container: ".custom-big-carousel-slides",
           items: 1,
           controls: true,
@@ -24,15 +24,13 @@ export default Component.extend({
           nextButton: ".custom-big-carousel-next",
           navContainer: ".custom-big-carousel-nav",
         });
-
-        console.log(slider.getInfo()); // temp
       });
     }
   },
 
   @discourseComputed("router.currentRouteName")
   shouldDisplay(currentRouteName) {
-    return currentRouteName == "discovery.categories";
+    return currentRouteName === "discovery.categories";
   },
 
   init() {
