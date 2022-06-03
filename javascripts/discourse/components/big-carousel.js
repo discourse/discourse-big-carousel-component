@@ -28,33 +28,12 @@ export default Component.extend({
       let bigUserSlides = [];
 
       // get user info
-      let userSetup = new Promise((resolve) => {
-        let count = 0;
-        let total = this.bigSlides.reduce(function (n, slide) {
-          return n + (slide.slide_type === "user");
-        }, 0);
-
-        if (total) {
-          this.bigSlides.map((slide) => {
-            if (slide.slide_type === "user") {
-              ajax(`/u/${slide.link}.json`)
-                .then(function (result) {
-                  set(slide, "user_info", result);
-                })
-                .then(function () {
-                  count++;
-                  if (count === total) {
-                    // don't resolve until we have everything
-                    resolve(bigUserSlides);
-                  }
-                });
-            }
-          });
-        } else {
-          // skip if no slides
-          resolve(bigUserSlides);
-        }
-      });
+      const userSlides = this.bigSlides.filterBy("slide_type", "user");
+      let userSetup = Promise.all(userSlides.map((slide) => {
+        return ajax(`/u/${slide.link}.json`).then((result) => {
+          set(slide, "user_info", result);
+        });
+      }));
 
       // get user activity
       let userActivity = new Promise((resolve) => {
