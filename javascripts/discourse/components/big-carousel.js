@@ -5,6 +5,7 @@ import discourseComputed from "discourse-common/utils/decorators";
 import { inject as service } from "@ember/service";
 import { ajax } from "discourse/lib/ajax";
 import { set } from "@ember/object";
+import { Promise } from "rsvp";
 
 export default Component.extend({
   router: service(),
