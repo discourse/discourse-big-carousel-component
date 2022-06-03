@@ -105,8 +105,9 @@ export default Component.extend({
             nextButton: ".custom-big-carousel-next",
             navContainer: ".custom-big-carousel-nav",
           });
-          this.set("isLoading", false);
         });
+      }).finally(() => {
+        this.set("isLoading", false);
       });
     }
 
