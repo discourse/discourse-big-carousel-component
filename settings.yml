@@ -1,7 +1,7 @@
 big_carousel_slides:
   default: >-
     [{"link": "https://google.com", "headline":"This is my headline", "text":"This is body text", "text_bg": "#000", "button_text": "click here", "image_url": "", "slide_bg_color": "#000", "slide_type": "slide"}]
-  json_schema: '{ "type": "array", "format": "list", "uniqueItems": true, "items": { "type": "object", "properties": { "link": { "type": "string", "minLength": 1 }, "headline": {"type": "string"}, "text": { "type": "string", "minLength": 1 }, "text_bg": { "type": "string", "minLength": 1 }, "button_text": {"type": "string"}, "image_url": { "type": "string" }, "slide_bg_color": { "type": "string" }, "slide_type": {"type": "string"} }, "additionalProperties": false } }'
+  json_schema: '{ "type": "array", "format": "list", "uniqueItems": true, "items": { "type": "object", "properties": { "link": { "type": "string", "minLength": 1 }, "headline": {"type": "string"}, "text": { "type": "string", "minLength": 1 }, "text_bg": { "type": "string" }, "button_text": {"type": "string"}, "image_url": { "type": "string" }, "slide_bg_color": { "type": "string" }, "slide_type": {"type": "string"} }, "additionalProperties": false } }'
 
 big_carousel_min_height:
   type: string
