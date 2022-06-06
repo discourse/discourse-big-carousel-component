@@ -1,6 +1,5 @@
 {{#if shouldDisplay}}
   <div class="custom-big-carousel">
-
     <div class="custom-big-carousel-prev">
       {{d-icon "chevron-left"}}
     </div>
@@ -10,7 +9,7 @@
     </div>
 
     <div class="custom-big-carousel-slides">
-      {{#each bigSlides as |bs|}}
+      {{#each bigStaticSlides as |bs|}}
         <div
           class="custom-big-carousel-slide"
           style={{html-safe
@@ -20,36 +19,99 @@
           <div class="custom-big-carousel-content">
             <div class="custom-big-carousel-outer-wrap wrap">
               <div class="custom-big-carousel-inner-wrap">
-                <a href={{bs.link}} class="custom-big-carousel-text-link">
-                  <h2>
-                    {{bs.headline}}
-                  </h2>
-                  <p>
-                    {{bs.text}}
-                  </p>
-                </a>
-                {{#if (and bs.button_text bs.link)}}
-                  <a href={{bs.link}} class="btn btn-primary btn-text">
-                    {{bs.button_text}}
+                <div class="custom-big-carousel-main-content">
+                  <a href={{bs.link}} class="custom-big-carousel-text-link">
+                    <h2>
+                      {{bs.headline}}
+                    </h2>
+
+                    <p>
+                      {{bs.text}}
+                    </p>
                   </a>
-                {{/if}}
+
+                  {{#if (and bs.button_text bs.link)}}
+                    <a href={{bs.link}} class="btn btn-primary btn-text">
+                      {{bs.button_text}}
+                    </a>
+                  {{/if}}
+                </div>
               </div>
             </div>
           </div>
         </div>
       {{/each}}
 
-      {{plugin-outlet
-        name="big-carousel-connector"
-        tagName=""
-        connectorTagName="div"
-      }}
+      {{#each bigUserSlides as |bs|}}
+        <div
+          class="custom-big-carousel-slide user-slide"
+          style={{html-safe
+            (concat "background-image: url(" bs.image_url ");")
+          }}
+        >
+          <div class="custom-big-carousel-content">
+            <div class="custom-big-carousel-outer-wrap wrap">
+              <div class="custom-big-carousel-inner-wrap">
+                <div class="custom-big-carousel-main-content">
+                  <h4>
+                    {{bs.headline}}
+                  </h4>
+
+                  <div>
+                    <h3>
+                      <a href="/u/{{bs.user_info.user.username}}">
+                        {{avatar bs.user_info.user imageSize="huge"}}
+                        {{bs.user_info.user.username}}
+                      </a>
+                    </h3>
+                  </div>
+
+                  <p class="bs-main-text">
+                    {{bs.text}}
+                  </p>
+
+                  {{#if (and bs.button_text bs.link)}}
+                    <a href="/u/{{bs.link}}" class="btn btn-primary btn-text">
+                      {{bs.button_text}}
+                    </a>
+                  {{/if}}
+                </div>
+
+                {{#if bs.user_activity}}
+                  <div class="bc-user-activity">
+                    <h4>Recent Activity</h4>
+
+                    {{#each bs.user_activity as |activity|}}
+                      <div class="bc-user-post">
+                        <a href="/t/{{activity.topic_id}}">
+                          <div class="bc-user-post-title">
+                            {{activity.title}}
+                          </div>
+                          <p class="bc-user-post-excerpt">
+                            {{html-safe activity.excerpt}}
+                          </p>
+                        </a>
+                      </div>
+                    {{/each}}
+                  </div>
+                {{/if}}
+              </div>
+            </div>
+          </div>
+        </div>
+      {{/each}}
     </div>
 
     <div class="custom-big-carousel-nav">
-      {{#each bigSlides}}
+      {{#each bigStaticSlides}}
+        <div class="custom-big-carousel-nav-item"></div>
+      {{/each}}
+
+      {{#each bigUserSlides}}
         <div class="custom-big-carousel-nav-item"></div>
       {{/each}}
     </div>
+
+    {{conditional-loading-spinner condition=isLoading}}
   </div>
 {{/if}}

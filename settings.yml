@@ -1,8 +1,9 @@
 big_carousel_slides:
   default: >-
-    [{"position": "2", "link": "https://google.com", "headline":"WOah", "text":"Hello there", "button_text": "button", "image_url":"", "staff":"false"},
-    {"position": "1", "link": "https://google.com",  "headline":"Big headline", "text":"Hello there", "button_text": "button", "image_url":"", "staff":"false"}]
-  json_schema: '{ "type": "array", "format": "table", "uniqueItems": true, "items": { "type": "object", "properties": { "position": { "type": "string" }, "link": { "type": "string", "minLength": 1 }, "headline": {"type": "string"}, "text": { "type": "string", "minLength": 1 }, "button_text": {"type": "string"}, "image_url": { "type": "string" } }, "additionalProperties": false } }'
+    [{"link": "https://google.com", "headline":"WOah", "text":"Hello there", "button_text": "button", "image_url":"", "slide_type":"slide"},
+    { "link": "https://google.com",  "headline":"Big headline", "text":"Hello there", "button_text": "button", "image_url":"", "slide_type":"slide"},
+    { "link": "discobot",  "headline":"Big headline", "text":"Hello there", "button_text": "button", "image_url":"", "slide_type":"user"}]
+  json_schema: '{ "type": "array", "format": "table", "uniqueItems": true, "items": { "type": "object", "properties": { "link": { "type": "string", "minLength": 1 }, "headline": {"type": "string"}, "text": { "type": "string", "minLength": 1 }, "button_text": {"type": "string"}, "image_url": { "type": "string" }, "slide_type": {"type": "string"} }, "additionalProperties": false } }'
 
 big_carousel_min_height:
   type: string
