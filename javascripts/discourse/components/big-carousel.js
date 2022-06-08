@@ -79,8 +79,12 @@ export default Component.extend({
     return currentRouteName === "discovery.categories";
   },
 
-  init() {
+  didInsertElement() {
     this._super(...arguments);
     this.appEvents.on("page:changed", this, "ensureSlider");
+  },
+
+  willDestroyElement() {
+    this.appEvents.off("page:changed", this, "ensureSlider");
   },
 });
