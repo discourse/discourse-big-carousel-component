@@ -19,7 +19,9 @@ export default Component.extend({
       // set up static populated slides
 
       const bigStaticSlides = this.bigSlides.filterBy("slide_type", "slide");
-      const staticSlides = Promise.all(this.bigSlides.filterBy("slide_type", "slide"));
+      const staticSlides = Promise.all(
+        this.bigSlides.filterBy("slide_type", "slide")
+      );
 
       let bigUserSlides = [];
 
