@@ -145,7 +145,7 @@
     }
     padding: 1.5em 2em;
     background: var(--secondary);
-    box-shadow: shadow("card");
+    box-shadow: var(--shadow-card);
     font-size: var(--font-down-1);
     h4,
     a {
