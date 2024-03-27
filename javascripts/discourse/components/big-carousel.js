@@ -1,18 +1,20 @@
 /* global tns */
 import Component from "@ember/component";
 import { computed, set } from "@ember/object";
+import { inject as service } from "@ember/service";
+import { Promise } from "rsvp";
+import { ajax } from "discourse/lib/ajax";
 import loadScript from "discourse/lib/load-script";
 import discourseComputed from "discourse-common/utils/decorators";
-import { inject as service } from "@ember/service";
-import { ajax } from "discourse/lib/ajax";
-import { Promise } from "rsvp";
 
 export default Component.extend({
   router: service(),
+
+  isLoading: true,
+
   bigSlides: computed(function () {
     return JSON.parse(settings.big_carousel_slides);
   }),
-  isLoading: true,
 
   ensureSlider() {
     if (this.shouldDisplay && this.bigSlides.length > 1) {
@@ -82,6 +84,7 @@ export default Component.extend({
   },
 
   willDestroyElement() {
+    this._super(...arguments);
     this.appEvents.off("page:changed", this, "ensureSlider");
   },
 });
