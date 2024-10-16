@@ -1,7 +1,7 @@
 /* global tns */
 import Component from "@ember/component";
 import { computed, set } from "@ember/object";
-import { inject as service } from "@ember/service";
+import { service } from "@ember/service";
 import { Promise } from "rsvp";
 import { ajax } from "discourse/lib/ajax";
 import loadScript from "discourse/lib/load-script";
