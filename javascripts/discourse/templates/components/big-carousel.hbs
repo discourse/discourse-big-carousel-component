@@ -1,4 +1,4 @@
-{{#if shouldDisplay}}
+{{#if this.shouldDisplay}}
   <div class="custom-big-carousel">
     <div class="custom-big-carousel-prev">
       {{d-icon "chevron-left"}}
@@ -9,7 +9,7 @@
     </div>
 
     <div class="custom-big-carousel-slides">
-      {{#each bigStaticSlides as |bs|}}
+      {{#each this.bigStaticSlides as |bs|}}
         <div
           class="custom-big-carousel-slide"
           style={{html-safe
@@ -52,7 +52,7 @@
         </div>
       {{/each}}
 
-      {{#each bigUserSlides as |bs|}}
+      {{#each this.bigUserSlides as |bs|}}
         <div
           class="custom-big-carousel-slide user-slide"
           style={{html-safe
@@ -119,15 +119,15 @@
     </div>
 
     <div class="custom-big-carousel-nav">
-      {{#each bigStaticSlides}}
+      {{#each this.bigStaticSlides}}
         <div class="custom-big-carousel-nav-item"></div>
       {{/each}}
 
-      {{#each bigUserSlides}}
+      {{#each this.bigUserSlides}}
         <div class="custom-big-carousel-nav-item"></div>
       {{/each}}
     </div>
 
-    {{conditional-loading-spinner condition=isLoading}}
+    {{conditional-loading-spinner condition=this.isLoading}}
   </div>
 {{/if}}
