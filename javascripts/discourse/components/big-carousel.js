@@ -7,14 +7,15 @@ import { ajax } from "discourse/lib/ajax";
 import loadScript from "discourse/lib/load-script";
 import discourseComputed from "discourse-common/utils/decorators";
 
-export default Component.extend({
-  router: service(),
+export default class BigCarousel extends Component {
+  @service router;
 
-  isLoading: true,
+  isLoading = true;
 
-  bigSlides: computed(function () {
+  @computed
+  get bigSlides() {
     return JSON.parse(settings.big_carousel_slides);
-  }),
+  }
 
   ensureSlider() {
     if (this.shouldDisplay && this.bigSlides.length > 1) {
@@ -71,20 +72,20 @@ export default Component.extend({
           this.set("isLoading", false);
         });
     }
-  },
+  }
 
   @discourseComputed("router.currentRouteName")
   shouldDisplay(currentRouteName) {
     return currentRouteName === "discovery.categories";
-  },
+  }
 
   didInsertElement() {
-    this._super(...arguments);
+    super.didInsertElement(...arguments);
     this.appEvents.on("page:changed", this, "ensureSlider");
-  },
+  }
 
   willDestroyElement() {
-    this._super(...arguments);
+    super.willDestroyElement(...arguments);
     this.appEvents.off("page:changed", this, "ensureSlider");
-  },
-});
+  }
+}
