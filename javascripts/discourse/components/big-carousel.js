@@ -4,8 +4,8 @@ import { computed, set } from "@ember/object";
 import { service } from "@ember/service";
 import { Promise } from "rsvp";
 import { ajax } from "discourse/lib/ajax";
+import discourseComputed from "discourse/lib/decorators";
 import loadScript from "discourse/lib/load-script";
-import discourseComputed from "discourse-common/utils/decorators";
 
 export default class BigCarousel extends Component {
   @service router;
