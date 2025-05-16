@@ -13,12 +13,9 @@
 
 .tns-slider {
   transition: all 0s;
-  transition: all 0s;
 }
 
 .tns-slider > .tns-item {
-  box-sizing: border-box;
-  box-sizing: border-box;
   box-sizing: border-box;
 }
 
@@ -63,12 +60,6 @@
   transition:
     transform 0s,
     opacity 0s;
-  transition:
-    transform 0s,
-    opacity 0s;
-  transition:
-    transform 0s,
-    opacity 0s;
 }
 
 .tns-gallery > .tns-slide-active {
@@ -78,8 +69,6 @@
 
 .tns-gallery > .tns-moving {
   transition: all 0.25s;
-  transition: all 0.25s;
-  transition: all 0.25s;
 }
 
 .tns-autowidth {
@@ -87,8 +76,6 @@
 }
 
 .tns-lazy-img {
-  transition: opacity 0.6s;
-  transition: opacity 0.6s;
   transition: opacity 0.6s;
   opacity: 0.6;
 }
@@ -98,8 +85,6 @@
 }
 
 .tns-ah {
-  transition: height 0s;
-  transition: height 0s;
   transition: height 0s;
 }
 
@@ -148,9 +133,6 @@
 }
 
 .tns-t-ct {
-  width: 2333.3333333%;
-  width: calc(100% * 70 / 3);
-  width: calc(100% * 70 / 3);
   width: calc(100% * 70 / 3);
   position: absolute;
   right: 0;
@@ -163,9 +145,6 @@
 }
 
 .tns-t-ct > div {
-  width: 1.4285714%;
-  width: calc(100% / 70);
-  width: calc(100% / 70);
   width: calc(100% / 70);
   height: 10px;
   float: left;
