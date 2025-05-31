@@ -1,3 +1,5 @@
+/* eslint-disable */
+// prettier-ignore
 var tns = (function () {
   Object.keys ||
     (Object.keys = function (t) {
